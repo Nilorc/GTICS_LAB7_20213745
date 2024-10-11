@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <title>Gestión de Salas</title>
+        <style>
+            .content {
+                margin-left: 260px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Barra lateral usando fragmento de Thymeleaf -->
+        <div th:replace="~{fragments/navbar.html :: sidebar}"></div>
+
+        <!-- Contenido principal -->
+        <div class="content">
+            <h2>Lista de Salas</h2>
+            <a class="btn btn-primary mt-4 mb-4" th:href="@{'/sala/nueva'}">Agregar Sala</a>
+
+            <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
+
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Capacidad</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="sala, iter : ${listaSalas}">
+                        <td th:text="${sala.id}"></td>
+                        <td th:text="${sala.nombre}"></td>
+                        <td th:text="${sala.capacidad}"></td>
+                        <td>
+                            <a class="btn btn-warning" th:href="@{'/sala/editar/' + ${sala.id}}">Editar</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" th:href="@{'/sala/eliminar/' + ${sala.id}}">Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+                crossorigin="anonymous"></script>
+    </body>
+</html>
